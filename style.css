@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;1,100;1,200;1,400;1,600&family=Raleway&family=Roboto:ital,wght@0,100;0,300;0,400;1,400&family=Rubik:wght@300;400;500&family=Urbanist:ital,wght@0,300;0,400;1,100;1,200;1,400&display=swap");
+
+body {
+  margin: 0;
+  padding: 30px;
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+  font-family: "Roboto", sans-serif;
+}
+
+li {
+  list-style-type: none;
+  display: block;
+  margin-bottom: 5px;
+}
+a {
+  text-decoration: none;
+}
+i {
+  float: right;
+  cursor: pointer;
+  margin-left: 15px;
+}
+.container {
+  margin: 20px auto;
+
+  width: 80%;
+  padding: 20px;
+  background-color: #bdb8b8ef;
+  border-radius: 4px;
+}
+.title {
+  text-align: center;
+}
+img {
+  width: 200px;
+}
+.form-container {
+  margin: 10px;
+}
+label {
+  font-size: 20px;
+}
+input {
+  border: none;
+  font-size: 20px;
+  padding: 5px;
+}
+/* input[type="text"] {
+  
+} */
+input[type="text"]:focus {
+  border-bottom: 2.5px solid #111;
+  outline: none;
+}
+input[type="submit"] {
+  background-color: #333;
+  color: #f4f4f4;
+  cursor: pointer;
+}
+.form-control {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

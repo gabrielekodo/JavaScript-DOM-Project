@@ -1,2 +1,3 @@
 # JavaScript-DOM-Project
-Task Management Tool
+
+Task Management Tool built using vanilla JavaScript

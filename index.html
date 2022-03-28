@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Task Manager</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="title ">
+            <!-- <img src="/images/favicon.jpg" alt="logo"> -->
+            <h1>Task Manager</h1>
+
+        </div>
+        <div class="form-container">
+            <form>
+                <label for="task">Task</label>
+
+                <div class="form-control">
+
+                    <input type="text" id="task" placeholder="Add task ....." required>
+
+                    <input type="submit" value="ADD">
+                </div>
+
+            </form>
+
+
+        </div>
+        <div class="items-container">
+            <h2 class="">My Tasks</h2>
+            <div class="items-group">
+                <ul class="tasks-group">
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+
+</html>
