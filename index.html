@@ -20,34 +20,37 @@
             <!-- <img src="/images/favicon.jpg" alt="logo"> -->
             <h1>Task Manager</h1>
 
+
         </div>
         <div class="form-container">
-            <form>
-                <label for="task">Task</label>
+            <form class="form-element">
+                <div class="alert"></div>
+
 
                 <div class="form-control">
 
-                    <input type="text" id="task" placeholder="Add task ....." required>
+                    <input type="text" id="task" placeholder=" Add task .....">
 
-                    <input type="submit" value="ADD">
+                    <input type="submit" value="ADD TASK" class="submit-btn">
                 </div>
+
 
             </form>
 
 
         </div>
-        <div class="items-container">
+        <div class="task-container">
             <h2 class="">My Tasks</h2>
-            <div class="items-group">
-                <ul class="tasks-group">
+            <div class="task-list">
 
-
-                </ul>
             </div>
+            <button class="clear-tasks">CLEAR TASKS BUCKET</button>
         </div>
     </div>
 
-    <script src="/app.js"></script>
+
+
+    <script src="app.js"></script>
 </body>
 
 </html>

@@ -16,10 +16,16 @@ li {
 a {
   text-decoration: none;
 }
-i {
+.delete,
+.edit {
   float: right;
   cursor: pointer;
   margin-left: 15px;
+  font-size: 20px;
+}
+button {
+  border: none;
+  background-color: transparent;
 }
 .container {
   margin: 20px auto;
@@ -28,6 +34,7 @@ i {
   padding: 20px;
   background-color: #bdb8b8ef;
   border-radius: 4px;
+  text-transform: capitalize;
 }
 .title {
   text-align: center;
@@ -53,7 +60,9 @@ input[type="text"]:focus {
   border-bottom: 2.5px solid #111;
   outline: none;
 }
-input[type="submit"] {
+
+.submit-btn,
+.clear-tasks {
   background-color: #333;
   color: #f4f4f4;
   cursor: pointer;
@@ -63,4 +72,42 @@ input[type="submit"] {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.task,
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.task {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.clear-tasks {
+  padding: 7px;
+  font-size: 17px;
+  border-radius: 1px;
+}
+.clear-tasks:hover {
+  background-color: #111;
+  color: #f4f4f4;
+}
+/* .btn-container {
+} */
+.alert {
+  padding: 10px;
+  margin-bottom: 5px;
+  text-align: center;
+  border-radius: 3px;
+  /* display: none; */
+}
+
+.alert-danger {
+  background-color: #f4f4f4;
+  color: red;
+}
+.alert-success {
+  color: green;
+  background-color: aliceblue;
 }
