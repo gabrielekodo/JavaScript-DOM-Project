@@ -13,15 +13,23 @@ li {
   display: block;
   margin-bottom: 5px;
 }
-a {
-  text-decoration: none;
-}
+
 .delete,
+.completed,
 .edit {
   float: right;
   cursor: pointer;
   margin-left: 15px;
   font-size: 20px;
+  transition: all 1s ease-in-out;
+}
+.delete,
+.completed,
+.edit:hover {
+  transform: scale(1.1);
+}
+.completed {
+  text-decoration: line-through;
 }
 button {
   border: none;
@@ -68,22 +76,43 @@ input[type="text"]:focus {
   cursor: pointer;
 }
 .form-control {
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
+#task {
+  flex: 3;
+}
+.submit-btn {
+  flex: 1;
+}
+@media screen and (max-width: 425px) {
+  .form-control {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  input {
+    width: 100%;
+    display: block;
+    margin-bottom: 5px;
+  }
 
+  .delete,
+  .completed,
+  .edit {
+    margin-left: 7px;
+    font-size: 14px;
+  }
+}
 .task,
 .btn-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.task {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
+
 .clear-tasks {
   padding: 7px;
   font-size: 17px;

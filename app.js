@@ -5,9 +5,11 @@ const taskList = document.querySelector(".task-list");
 const task = document.querySelector("#task");
 const submitBtn = document.querySelector(".submit-btn");
 const clearTasksBtn = document.querySelector(".clear-tasks");
+const completedBtn = document.querySelector(".completed");
 const alerts = document.querySelector(".alert");
 
 // variables
+let completed = false;
 let editElement;
 let editFlag = false;
 let editID = "";
@@ -20,7 +22,7 @@ const addTask = (e) => {
 
   if (value && !editFlag) {
     const yourTask = { id, task: value };
-    console.log(yourTask);
+    // console.log(yourTask);
 
     const element = document.createElement("div");
     element.classList.add("task");
@@ -30,27 +32,28 @@ const addTask = (e) => {
     element.setAttributeNode(attribute);
 
     element.innerHTML = `
-     <p>${value}</p>
+   
+    <p>${value}</p>
                     <div class="btn-container">
                         <button class="edit">
-                            <i class="fa  fa-pencil-square " aria-hidden="true">EDIT</i></button><button class="delete">
-                            <i class="fa fa-trash" aria-hidden="true">DEL</i></button>
+                            <i class="fa  fa-pencil-square " aria-hidden="true"></i></button><button class="delete">
+                            <i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <button class="completed">
+                            <i class="fa fa-check-square" aria-hidden="true"></i></button>
+                            
                     </div>
     `;
 
     taskList.appendChild(element);
     addToLocalSorage(id, value);
-    // const deleteBtn = document.querySelector(".delete");
-    // const editBtn = document.querySelector(".edit");
-    // deleteBtn.addEventListener("click", deleteTask);
-    // editBtn.addEventListener("click", editTask);
+    clearTasksBtn.style.display = "block";
     displayAlert("Task added succesfully", "success");
     setDefault();
   } else if (value && editFlag) {
     editElement.innerHTML = value;
-    displayAlert("Task edited", "success");
     // edit local storage
     editLocalStorage(editID, value);
+    displayAlert("Task edited", "success");
     setDefault();
   } else {
     displayAlert("Enter Task", "danger");
@@ -87,8 +90,8 @@ const setDefault = () => {
 };
 
 //add to local storage
-const addToLocalSorage = (id, value) => {
-  let myTask = { id, value };
+const addToLocalSorage = (id, value, status) => {
+  let myTask = { id, value, completed };
   let taskArray;
   if (localStorage.getItem("tasks") === null) {
     taskArray = [];
@@ -106,65 +109,75 @@ const removeFromLocalStorage = (id) => {
   const newList = list.filter((item) => item.id != id);
   //update local storage
   localStorage.setItem("tasks", JSON.stringify(newList));
-  console.log(list, newList);
 };
 
 // edit local storage
-const editLocalStorage = (id, task) => {
+const editLocalStorage = (id, task, status) => {
   //iterate array from LS
   const list = JSON.parse(localStorage.getItem("tasks"));
   //filter objects in array
   let toBeUpdated = list.find((task) => task.id === id);
   toBeUpdated.value = task;
-  console.log(toBeUpdated.value);
-  console.log(list);
+
+  toBeUpdated.completed = status;
+  console.log(toBeUpdated);
+
   // filter out task from Local Storage
   localStorage.setItem("tasks", JSON.stringify(list));
-  //update task Object
-
-  // push back to array
-
-  //persist to local staorage
-
-  console.log("edit stored succesfully....");
 };
 //delete task
 const deleteTask = (e) => {
-  const taskElement = e.target.parentElement.parentElement.parentElement;
-  const id = taskElement.dataset.id;
   if (e.target.parentElement.classList.contains("delete")) {
+    const taskElement = e.target.parentElement.parentElement.parentElement;
+    const id = taskElement.dataset.id;
+    editFlag = false;
     taskElement.parentElement.removeChild(taskElement);
 
     removeFromLocalStorage(id);
+    displayAlert("Task deleted", "danger");
+    setDefault();
   }
-
-  displayAlert("Task deleted", "danger");
-  setDefault();
 };
 //edit task
 const editTask = (e) => {
-  const taskElement = e.target.parentElement.parentElement.parentElement;
-  editElement = taskElement.firstElementChild;
-
-  task.value = editElement.innerText;
-  editFlag = true;
-  editID = taskElement.dataset.id;
-
   if (e.target.parentElement.classList.contains("edit")) {
+    const taskElement = e.target.parentElement.parentElement.parentElement;
+    editElement = taskElement.firstElementChild;
+
+    task.value = editElement.innerText;
+
+    editFlag = true;
+    editID = taskElement.dataset.id;
     //selecting task and adding it to input field
-    console.log(editElement, editID);
+
     document.querySelector("#task").value = editElement.innerHTML;
     submitBtn.value = "EDIT";
   }
+};
 
-  displayAlert("Task Edited", "success");
+// mark as completed
+const taskCompleted = (e) => {
+  if (e.target.parentElement.classList.contains("completed")) {
+    const taskElement = e.target.parentElement.parentElement.parentElement;
+    editElement = taskElement.firstElementChild;
+    editElement.classList.add("completed");
+    //  editElement.innerText;
+    editFlag = true;
+    completed = true;
+    editID = taskElement.dataset.id;
+    editLocalStorage(editID, editElement.innerText, completed);
+    //selecting task and adding it to input field
+
+    //  document.querySelector("#task").value = editElement.innerHTML;
+    //  submitBtn.value = "EDIT";
+  }
 };
 
 // LOAD DOM CONTENT
 const loadTasksFromStorage = () => {
   const list = JSON.parse(localStorage.getItem("tasks"));
 
-  if (list.length > 0) {
+  if (localStorage.getItem("tasks") !== null && list.length > 0) {
     list.forEach((item) => {
       const element = document.createElement("div");
       element.classList.add("task");
@@ -174,19 +187,22 @@ const loadTasksFromStorage = () => {
       element.setAttributeNode(attribute);
 
       element.innerHTML = `
-     <p>${item.value}</p>
+      
+     <p class="${item.completed ? "completed" : ""}">${item.value}</p>
                     <div class="btn-container">
                         <button class="edit">
-                            <i class="fa  fa-pencil-square " aria-hidden="true">EDIT</i></button><button class="delete">
-                            <i class="fa fa-trash" aria-hidden="true">DEL</i></button>
+                            <i class="fa  fa-pencil-square " aria-hidden="true"></i></button><button class="delete">
+                            <i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <button class="completed">
+                            <i class="fa fa-check-square" aria-hidden="true"></i></button>
                     </div>
     `;
 
       taskList.appendChild(element);
-      clearTasksBtn.textContent = "Clear Tasks";
+      clearTasksBtn.style.display = "block";
     });
   } else {
-    clearTasksBtn.textContent = "No Tasks Available";
+    clearTasksBtn.style.display = "none";
   }
 };
 
@@ -202,5 +218,7 @@ taskList.addEventListener("click", deleteTask);
 // edit task
 taskList.addEventListener("click", editTask);
 
+// completed task
+taskList.addEventListener("click", taskCompleted);
 // LOAD DOM CONTENT
 window.addEventListener("DOMContentLoaded", loadTasksFromStorage);
